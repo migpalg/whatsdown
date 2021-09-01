@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["./src/*"],
+      "@core": ["./src/core"],
+      "@core/*": ["src/core/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
