@@ -8,6 +8,10 @@
     "build:prod": "sh scripts/build/build-prod.sh",
     "build:dev": "sh scripts/build/build-dev.sh",
     "serve:dev": "sh scripts/serve.sh",
+    "deploy:docker": "docker-compose up -d",
+    "remove:docker": "docker-compose down",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "eslint src"
   },
   "dependencies": {
