@@ -12,7 +12,8 @@
     "remove:docker": "docker-compose down",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",

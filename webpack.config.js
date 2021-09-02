@@ -6,8 +6,8 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'dist'),
-    chunkFilename: '[name].js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
   },
   devtool: 'inline-source-map',
   resolve: {
@@ -19,7 +19,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Development',
-      template: './public/index.html',
+      template: path.join(__dirname, 'public/index.html'),
     }),
   ],
   module: {
@@ -35,6 +35,8 @@ module.exports = {
   },
   optimization: {},
   devServer: {
-    static: './dist',
+    static: path.join(__dirname, 'dist'),
+    hot: true,
+    historyApiFallback: true,
   },
 };
