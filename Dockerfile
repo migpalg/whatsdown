@@ -19,6 +19,7 @@ RUN yarn run build:prod
 
 # Production environment
 FROM nginx:stable-alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY ./etc/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/dist /var/www
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

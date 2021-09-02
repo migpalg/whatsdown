@@ -1,15 +1,18 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const mode = process.env.NODE_ENV || 'development';
+
 module.exports = {
   entry: './src/index.js',
-  mode: process.env.NODE_ENV || 'development',
+  mode: mode,
   output: {
-    filename: 'app.js',
+    filename: '[name].js',
     path: path.join(__dirname, 'dist'),
+    chunkFilename: '[id].[chunkhash].js',
     publicPath: '/',
   },
-  devtool: 'inline-source-map',
+  devtool: mode === 'development' ? 'inline-source-map' : false,
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, 'src'),
@@ -33,7 +36,12 @@ module.exports = {
       },
     ],
   },
-  optimization: {},
+  optimization: {
+    splitChunks: {
+      minSize: 10000,
+      maxSize: 250000,
+    },
+  },
   devServer: {
     static: path.join(__dirname, 'dist'),
     hot: true,
