@@ -7,6 +7,9 @@ import { BrowserRouter } from 'react-router-dom';
 // @scripts
 import { App, client } from './core';
 
+// @styles
+import './core/scss/globals.scss';
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
