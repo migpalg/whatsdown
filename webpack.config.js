@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -20,9 +23,22 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.DefinePlugin({
+      // <-- key to reducing React's size
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
     new HtmlWebpackPlugin({
       title: 'Development',
       template: path.join(__dirname, 'public/index.html'),
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
     }),
   ],
   module: {
@@ -41,9 +57,17 @@ module.exports = {
     ],
   },
   optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
     splitChunks: {
-      minSize: 10000,
-      maxSize: 250000,
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          name: 'node_vendors',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+        },
+      },
     },
   },
   devServer: {

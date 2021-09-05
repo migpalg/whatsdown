@@ -9,11 +9,7 @@ COPY yarn.lock .
 
 RUN yarn install --frozen-lockfile
 
-COPY src src
-COPY public public
-COPY scripts scripts
-COPY webpack.config.js .
-COPY babel.config.json .
+COPY . .
 
 RUN yarn run build:prod
 
